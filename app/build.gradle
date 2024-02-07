@@ -1,7 +1,7 @@
 plugins {
     id "com.android.application"
 }
-
+android.buildFeatures.buildConfig true
 ext {
     // The packageVariant defines the bootstrap variant that will be included in the app APK.
     // This must be supported by com.termux.shared.termux.TermuxBootstrap.PackageVariant or app will
@@ -13,6 +13,7 @@ ext {
 }
 
 android {
+    namespace 'com.termux'
     compileSdkVersion project.properties.compileSdkVersion.toInteger()
     ndkVersion = System.getenv("JITPACK_NDK_VERSION") ?: project.properties.ndkVersion
     def appVersionName = System.getenv("TERMUX_APP_VERSION_NAME") ?: ""
