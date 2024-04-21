@@ -593,10 +593,10 @@ public class TermuxActivity extends com.termux.display.MainActivity implements S
         findViewById(R.id.backup_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String command = "tar -zcvf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr \n";
+                String command = "tar -zcf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr \n";
                 File file = new File(getFilesDir().getAbsolutePath() + File.separator +"home" +File.separator+"storage");
                 if (!file.exists()){
-                    command= "termux-setup-storage;sleep 5s;tar -zcvf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr \n";
+                    command= "termux-setup-storage;sleep 5s;tar -zcf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr \n";
                 }
                 mTermuxTerminalSessionActivityClient.getCurrentStoredSessionOrLast().write(command);
                 slideWindowLayout.setTerminalViewSwitchSlider(true);
