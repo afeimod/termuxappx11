@@ -31,8 +31,6 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
 
     /**
      * listener for menu changed
-     *
-     *
      */
     public interface OnMenuChangeListener {
         /**
@@ -86,7 +84,7 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
                 mMenuRightPadding = a.getDimensionPixelSize(attr,
                     (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, 50f,
-                        getResources().getDisplayMetrics()));// 默认为10DP
+                        getResources().getDisplayMetrics()));// default 10DP
                 break;
             }
         }
@@ -111,10 +109,10 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
          */
         if (!once) {
             if (landscape) {
-                mContentWidth = mScreenHeight>mScreenWidth?mScreenHeight:mScreenWidth;
+                mContentWidth = mScreenHeight > mScreenWidth ? mScreenHeight : mScreenWidth;
                 mMenuRightPadding = mContentWidth * 3 / 5;
             } else {
-                mContentWidth = mScreenWidth<mScreenHeight?mScreenWidth:mScreenHeight;
+                mContentWidth = mScreenWidth < mScreenHeight ? mScreenWidth : mScreenHeight;
                 mMenuRightPadding = verticalPadding;
             }
             mWrapper = (LinearLayout) getChildAt(0);
@@ -128,7 +126,7 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
             mContent.getLayoutParams().width = mContentWidth;
             mRightMenu.getLayoutParams().width = mMenuWidth;
 
-            Log.d("changeLayoutOrientation", "landscape:"+String.valueOf(landscape)+", mContentWidth" + ":" + String.valueOf(mContentWidth) + ",mScreenHeight:" + String.valueOf(mScreenHeight) + ",mScreenWidth:" + String.valueOf(mScreenWidth));
+            Log.d("changeLayoutOrientation", "landscape:" + String.valueOf(landscape) + ", mContentWidth" + ":" + String.valueOf(mContentWidth) + ",mScreenHeight:" + String.valueOf(mScreenHeight) + ",mScreenWidth:" + String.valueOf(mScreenWidth));
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -136,10 +134,10 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if (changed) {
-            // hide menu at start up
-            this.scrollTo(mMenuWidth, 0);
-        }
+//        if (changed) {
+//            // hide menu at start up
+//            this.scrollTo(mMenuWidth, 0);
+//        }
         once = true;
     }
 
@@ -150,7 +148,7 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
             // open menu if scroll to distance that more than half menu width
             case MotionEvent.ACTION_UP:
                 int scrollX = getScrollX();
-                if (scrollX <= 0&&null != mOnMenuChangeListener) {
+                if (scrollX <= 0 && null != mOnMenuChangeListener) {
                     mOnMenuChangeListener.onEdgeReached();
                 }
 //                Log.d("onTouchEvent", "scrollX:" + scrollX);
@@ -175,7 +173,7 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
                 }
                 //operate right
                 if (isOperateRight) {
-                    if (scrollX > mHalfMenuWidth + mMenuWidth) {
+                    if (scrollX > (mHalfMenuWidth + mMenuWidth)) {
                         this.smoothScrollTo(mMenuWidth + mMenuWidth, 0);
                         if (!isRightMenuOpen && mOnMenuChangeListener != null) {
                             mOnMenuChangeListener.onMenuOpen(true, 1);
@@ -226,14 +224,15 @@ public class DisplaySlidingWindow extends HorizontalScrollView {
             this.smoothScrollTo(mMenuWidth + mMenuWidth, 0);
         }
     }
-    public void setTerminalVIewSwitchSlider(boolean openSlider){
-        this.switchSlider = openSlider;
+
+    public void setTerminalViewSwitchSlider(boolean openSlider) {
         if (!openSlider) {
             this.smoothScrollTo(mMenuWidth, 0);
         } else {
             this.smoothScrollTo(0, 0);
         }
     }
+
     public void switchSlider() {
         this.switchSlider = !this.switchSlider;
     }

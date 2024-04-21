@@ -250,7 +250,7 @@ public class TermuxActivity extends com.termux.display.MainActivity implements S
 
             @Override
             public void onEdgeReached() {
-                getDrawer().openDrawer(Gravity.START);
+                getDrawer().openDrawer(Gravity.LEFT);
             }
         });
 
@@ -599,7 +599,7 @@ public class TermuxActivity extends com.termux.display.MainActivity implements S
                     command= "termux-setup-storage;sleep 5s;tar -zcvf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr \n";
                 }
                 mTermuxTerminalSessionActivityClient.getCurrentStoredSessionOrLast().write(command);
-                slideWindowLayout.setTerminalVIewSwitchSlider(true);
+                slideWindowLayout.setTerminalViewSwitchSlider(true);
                 closeTerminalSessionListView();
             }
         });
@@ -952,14 +952,14 @@ public class TermuxActivity extends com.termux.display.MainActivity implements S
                 @Override
                 public void run() {
                     File file = new File(getFilesDir().getAbsolutePath() + File.separator +"home" +File.separator+"storage");
-                    String command = "termux-setup-storage;sleep 5s;tar -zxvf "+realPath+" -C "+TERMUX_FILES_DIR_PATH + " --recursive-unlink"+" --preserve-permissions && exit \n";
+                    String command = "termux-setup-storage;sleep 5s;tar -zxf "+realPath+" -C "+TERMUX_FILES_DIR_PATH + " --recursive-unlink"+" --preserve-permissions && exit \n";
                     if (file.exists()){
-                        command="tar -zxvf "+realPath+" -C "+TERMUX_FILES_DIR_PATH + " --recursive-unlink"+" --preserve-permissions && exit \n";
+                        command="tar -zxf "+realPath+" -C "+TERMUX_FILES_DIR_PATH + " --recursive-unlink"+" --preserve-permissions && exit \n";
                     }
                     mTermuxTerminalSessionActivityClient.getCurrentStoredSessionOrLast().write(command);
                 }
             });
-            slideWindowLayout.setTerminalVIewSwitchSlider(true);
+            slideWindowLayout.setTerminalViewSwitchSlider(true);
         }
     }
 
